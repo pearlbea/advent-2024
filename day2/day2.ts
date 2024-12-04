@@ -13,7 +13,7 @@ export function parseFile(data: string) {
 }
 
 export function isIncreasing(array: number[]) {
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length - 1; i++) {
     if (array[i] >= array[i + 1]) {
       return false;
     }
@@ -22,7 +22,7 @@ export function isIncreasing(array: number[]) {
 }
 
 export function isDecreasing(array: number[]) {
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length - 1; i++) {
     if (array[i] <= array[i + 1]) {
       return false;
     }
@@ -31,7 +31,7 @@ export function isDecreasing(array: number[]) {
 }
 
 export function isSafeReport(report: number[]): boolean {
-  for (let i = 0; i < report.length; i++) {
+  for (let i = 0; i < report.length - 1; i++) {
     const first = report[i];
     const next = report[i + 1];
     if (first === next) return false;
@@ -58,12 +58,17 @@ export function numberOfSafeReports(reports: number[][]) {
   return safeReports;
 }
 
-console.log(numberOfSafeReports(parseFile(data))); // 356 part 1, 498 (too big) for part 2
+console.log(numberOfSafeReports(parseFile(data))); // 356 part 1, 413 (too small) for part 2
+
+export function removeItem(arr: number[], index: number) {
+  const copy = [...arr];
+  copy.splice(index, 1);
+  return copy;
+}
 
 export function canBeSafe(report: number[]) {
   for (let i = 0; i < report.length; i++) {
-    const copy = report;
-    copy.splice(i, 1);
+    const copy = removeItem(report, i);
     if (isSafeReport(copy)) {
       return true;
     }
