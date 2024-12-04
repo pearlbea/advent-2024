@@ -45,15 +45,15 @@ export function calculateSimilariltyScore(sortedData: number[][]) {
   let similarityScore = 0;
   const [left, right] = sortedData;
 
+  const counter = new Map();
+  for (const num of right) {
+    counter.set(num, (counter.get(num) || 0) + 1);
+  }
+
   for (let i = 0; i < left.length; i++) {
     const num = left[i];
-
-    const appearsInRight = right.filter((item) => {
-      return item === num;
-    });
-
-    const increase = num * appearsInRight.length;
-
+    const count = counter.get(num) || 0;
+    const increase = num * count;
     similarityScore += increase;
   }
   return similarityScore;
