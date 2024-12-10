@@ -1,6 +1,7 @@
 import os.path
 
 type point = tuple[int, int]
+type dir = tuple[int, int]
 
 
 def parse(filename: str) -> tuple[set[point], point, int, int]:
@@ -24,7 +25,7 @@ def is_out_of_bounds(pos: point, w: int, h: int) -> bool:
     return pos[0] < 0 or pos[1] < 0 or pos[0] >= w or pos[1] >= h
 
 
-def move(walls: set[point], pos: point, direction: point) -> tuple[point, point]:
+def move(walls: set[point], pos: point, direction: dir) -> tuple[point, dir]:
     # Returns the new position and direction of the guard after moving.
     # Try to move forward.
     new_pos = (pos[0] + direction[0], pos[1] + direction[1])
@@ -37,7 +38,7 @@ def move(walls: set[point], pos: point, direction: point) -> tuple[point, point]
 
 def part1() -> int:
     walls, guard_pos, w, h = parse("input-amos")
-    guard_direction = (0, -1)  # Assume guard is facing up
+    guard_direction: dir = (0, -1)  # Assume guard is facing up
     guard_positions = {guard_pos}
     while not is_out_of_bounds(guard_pos, w, h):
         guard_pos, guard_direction = move(walls, guard_pos, guard_direction)
@@ -60,7 +61,7 @@ def is_loop(
 
 
 def unobstructed_guard_path(
-    walls: set[point], guard_pos: point, guard_direction: point, w: int, h: int
+    walls: set[point], guard_pos: point, guard_direction: dir, w: int, h: int
 ) -> set[point]:
     # We want this path since it only makes sense to place obstacles on the path
     # that the guard would take.
@@ -74,7 +75,7 @@ def unobstructed_guard_path(
 def part2() -> int:
     num_loops = 0
     walls, guard_pos, w, h = parse("input-amos")
-    guard_direction = (0, -1)  # Assume guard is facing up
+    guard_direction: dir= (0, -1)  # Assume guard is facing up
     path = unobstructed_guard_path(walls, guard_pos, guard_direction, w, h)
     for col, row in path:
         obstacle = (col, row)
