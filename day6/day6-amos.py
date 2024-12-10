@@ -25,7 +25,8 @@ def is_out_of_bounds(pos: point, w: int, h: int) -> bool:
 
 
 def move(walls: set[point], pos: point, direction: point) -> tuple[point, point]:
-    # Move forward
+    # Returns the new position and direction of the guard after moving.
+    # Try to move forward.
     new_pos = (pos[0] + direction[0], pos[1] + direction[1])
     if new_pos in walls:
         # Turn right - note that we don't actually move into the wall in this
