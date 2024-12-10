@@ -47,7 +47,7 @@ def part1() -> int:
 
 
 def is_loop(
-    walls: set[point], guard_pos: point, guard_direction: point, w: int, h: int
+    walls: set[point], guard_pos: point, guard_direction: dir, w: int, h: int
 ) -> bool:
     guard_position_directions = {(guard_pos, guard_direction)}
     while not is_out_of_bounds(guard_pos, w, h):
@@ -75,7 +75,7 @@ def unobstructed_guard_path(
 def part2() -> int:
     num_loops = 0
     walls, guard_pos, w, h = parse("input-amos")
-    guard_direction: dir= (0, -1)  # Assume guard is facing up
+    guard_direction: dir = (0, -1)  # Assume guard is facing up
     path = unobstructed_guard_path(walls, guard_pos, guard_direction, w, h)
     for col, row in path:
         obstacle = (col, row)
